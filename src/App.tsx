@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
-import ContactsList from './components/ContactList';
-import ContactDetails from './components/ContactDetails';
+import ContactList from './pages/ContactList';
+import ContactDetails from './pages/ContactDetails';
 import logo from './assets/image/logo-v.png';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Form from './components/Form';
+import ContactForm from './components/ContactForm';
 
 const Container = styled.div`
   list-style: none;
@@ -57,9 +57,9 @@ const App: React.FC<Props> = () => {
       <Header logoSrc={logo} title="Lista de Contatos" />
       <Container>
         <Routes>
-          <Route path="/" element={<ContactsList contacts={contacts} />} />
+          <Route path="/" element={<ContactList contacts={contacts} />} />
           <Route path="/details/:id" element={<ContactDetails contacts={contacts} />} />
-          <Route path="/new-contact" element={<Form />} />
+          <Route path="/new-contact" element={<ContactForm />} />
         </Routes>
       </Container>
     </Router>
