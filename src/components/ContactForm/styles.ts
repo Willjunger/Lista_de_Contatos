@@ -71,6 +71,7 @@ export const InputField = styled.input`
 `;
 
 export const ContactDetailsContainer = styled(FormContainer)`
+  width: 100%;
   & > * {
     margin-bottom: 16px;
   }

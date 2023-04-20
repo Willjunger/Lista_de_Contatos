@@ -51,7 +51,7 @@ const ContactForm: React.FC<FormProps> = ({ contact }) => {
             .of(Yup.string().required('O telefone é obrigatório'))
             .min(1, 'Pelo menos um telefone deve ser informado'),
         avatar: Yup.string(),
-        cep: Yup.string(),
+        cep: Yup.string().required('O cep é obrigatório'),
         street: Yup.string(),
         homeNumber: Yup.string(),
         neighborhood: Yup.string(),
@@ -132,12 +132,12 @@ const ContactForm: React.FC<FormProps> = ({ contact }) => {
             setHomeNumber("");
             setCity("");
             setState("");
-            toast.success('Usuário adicionado com sucesso!', { duration: 5000 })
+            toast.success('Usuário adicionado com sucesso!', { duration: 3000 })
             setTimeout(() => {
                 window.location.replace("/");
-            }, 4000);
+            }, 3000);
         } catch (error) {
-            toast.error('Existem campos vazios!', { duration: 5000 });
+            toast.error('Existem campos vazios!', { duration: 3000 });
         }
     };
 
@@ -184,10 +184,10 @@ const ContactForm: React.FC<FormProps> = ({ contact }) => {
         setCity("");
         setState("");
 
-        toast.success('Usuário editado com sucesso!', { duration: 4000 })
+        toast.success('Usuário editado com sucesso!', { duration: 3000 })
         setTimeout(() => {
             window.location.replace("/");
-        }, 2000);
+        }, 3000);
     };
 
     const handleDelete = () => {
@@ -195,12 +195,11 @@ const ContactForm: React.FC<FormProps> = ({ contact }) => {
             localStorage.getItem("contacts") || "[]"
         );
         const updatedContacts = contacts.filter((c) => c.id !== contact?.id);
-        console.log(updatedContacts)
         localStorage.setItem("contacts", JSON.stringify(updatedContacts));
         toast.success('Usuário deletado com sucesso!', { duration: 3000 });
         setTimeout(() => {
             window.location.replace("/");
-        }, 4000);
+        }, 2000);
     };
 
     const handleCepSearch = async () => {
