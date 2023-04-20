@@ -18,12 +18,16 @@ const ContactsList: React.FC<Props> = ({ contacts }) => {
     const [searchValue, setSearchValue] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [filteredContacts, setFilteredContacts] = useState<Contact[]>(contacts);
+
+    // Verifica se há algum contato filtrado para mostrar na lista
     const hasFilteredContacts = filteredContacts.length > 0;
 
+    // Atualiza o estado do input de busca sempre que houver mudanças
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setSearchValue(value);
 
+        // Filtra os contatos de acordo com o valor da busca
         const filtered = contacts.filter((contact) =>
             contact.name.toLowerCase().includes(value.toLowerCase())
         );
@@ -53,6 +57,7 @@ const ContactsList: React.FC<Props> = ({ contacts }) => {
                     onFocus={() => setShowSuggestions(true)}
                     onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                 />
+
                 {showSuggestions && (
                     <SuggestionsContainer show={hasFilteredContacts}>
                         {searchValue.length > 0 &&
