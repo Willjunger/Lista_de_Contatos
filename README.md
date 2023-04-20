@@ -57,13 +57,13 @@ Desafio para vaga de Desenvolvedor Front-end na empresa VExpenses.
 Clone o projeto
 
 ```bash
-  git clone https://link-para-o-projeto
+  git clone https://github.com/Willjunger/Lista_de_Contatos.git
 ```
 
 Entre no diretório do projeto
 
 ```bash
-  cd my-project
+  cd Lista_de_Contatos
 ```
 
 Instale as dependências
