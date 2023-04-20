@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
+import ContactsList from './components/ContactList';
+import ContactDetails from './components/ContactDetails';
+import logo from './assets/image/logo-v.png';
+import styled from 'styled-components';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Form from './components/Form';
 
-function App() {
-  const [count, setCount] = useState(0)
+const Container = styled.div`
+  list-style: none;
+  padding: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+`;
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+interface Contact {
+  id: string;
+  name: string;
+  phones: string[];
+  avatar: string;
+  cep: string;
+  street: string;
+  homeNumber: string;
+  neighborhood: string;
+  city: string;
+  state: string;
 }
 
-export default App
+interface Props {
+  contacts?: Contact[];
+}
+
+const App: React.FC<Props> = () => {
+  const getStoredContacts = (): Contact[] => {
+    const storedContacts = localStorage.getItem('contacts');
+    if (storedContacts) {
+      return JSON.parse(storedContacts);
+    } else {
+      return [];
+    }
+  }
+
+  const [contacts, setContacts] = useState<Contact[]>(getStoredContacts());
+
+  useEffect(() => {
+    const savedContacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+    setContacts(savedContacts);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+
+  return (
+    <Router>
+      <Header logoSrc={logo} title="Lista de Contatos" />
+      <Container>
+        <Routes>
+          <Route path="/" element={<ContactsList contacts={contacts} />} />
+          <Route path="/details/:id" element={<ContactDetails contacts={contacts} />} />
+          <Route path="/new-contact" element={<Form />} />
+        </Routes>
+      </Container>
+    </Router>
+  );
+};
+
+export default App;
