@@ -24,6 +24,8 @@ interface Props {
 
 const ContactDetails: React.FC<Props> = ({ contacts }) => {
     const { id } = useParams<{ id: string }>();
+
+    // Busca o contato pelo id
     const contact = contacts.find((c: { id: string | undefined; }) => c.id === id);
 
     if (!contact) {

@@ -60,6 +60,7 @@ const ContactForm: React.FC<FormProps> = ({ contact }) => {
     });
 
     useEffect(() => {
+        // Verifica se existe um contato e, caso exista, atualiza o estado com os dados desse contato
         if (contact) {
             setName(contact.name);
             setPhones(contact.phones);
@@ -75,11 +76,13 @@ const ContactForm: React.FC<FormProps> = ({ contact }) => {
         if (location.pathname.includes("/details")) {
             setIsDetailsPage(true);
 
+            // Busca todos os contatos armazenados no localStorage e encontra o contato com o mesmo id do contato atual
             const storedContacts: Contact[] = JSON.parse(
                 localStorage.getItem("contacts") || "[]"
             );
             const storedContact = storedContacts.find((c) => c.id === contact?.id);
 
+            //Se o contato atual também estiver armazenado no localStorage, atualiza o estado com seus dados e seta editing para false
             if (storedContact) {
                 setName(storedContact.name);
                 setPhones(storedContact.phones);
@@ -100,7 +103,6 @@ const ContactForm: React.FC<FormProps> = ({ contact }) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Armazena os contatos no localStorage
         const contacts: Contact[] = JSON.parse(
             localStorage.getItem("contacts") || "[]"
         );
@@ -120,6 +122,7 @@ const ContactForm: React.FC<FormProps> = ({ contact }) => {
         try {
             await schema.validate(newContact);
 
+            // Adiciona o novo contato ao array de contatos e atualiza o localStorage com o novo array
             const updatedContacts = contacts.length > 0 ? [...contacts, newContact] : [newContact];
             localStorage.setItem("contacts", JSON.stringify(updatedContacts));
 
@@ -132,6 +135,7 @@ const ContactForm: React.FC<FormProps> = ({ contact }) => {
             setHomeNumber("");
             setCity("");
             setState("");
+
             toast.success('Usuário adicionado com sucesso!', { duration: 3000 })
             setTimeout(() => {
                 window.location.replace("/");
