@@ -31,7 +31,7 @@ interface FormProps {
     contact?: Contact;
 }
 
-const Form: React.FC<FormProps> = ({ contact }) => {
+const ContactForm: React.FC<FormProps> = ({ contact }) => {
     const location = useLocation();
     const [name, setName] = useState("");
     const [phones, setPhones] = useState<string[]>([]);
@@ -506,4 +506,4 @@ const Form: React.FC<FormProps> = ({ contact }) => {
     );
 };
 
-export default Form;
+export default ContactForm;
